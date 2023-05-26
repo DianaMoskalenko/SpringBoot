@@ -1,17 +1,28 @@
 package com.ua.spring.service;
 
 import com.ua.spring.domain.Student;
-import org.springframework.stereotype.Component;
+import com.ua.spring.repository.StudentRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
+@RequiredArgsConstructor
 public class StudentService {
+    private static StudentRepository studentRepository;
+
+
     public static List<Student> findAll() {
-        return List.of(
-                new Student("Jok", 15, "London"),
-                new Student("Jody", 17, "Porto"),
-                new Student("Jina", 20, "Sao Paulo"),
-                new Student("John", 25, "Washington"));
+       return (List<Student>) studentRepository.findAll();
     }
+    public Optional<Student> findById(Long id) {
+        return studentRepository.findById(id);
+    }
+    public void save(Student student) {
+        studentRepository.save(student);
+    }
+
+
 }
